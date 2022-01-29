@@ -1,0 +1,7 @@
+package com.example.historyms.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface HistoryRepo extends JpaRepository<T, ID> {
+
+}

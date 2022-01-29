@@ -1,0 +1,101 @@
+package com.example.historyms.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Convert;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity
+@Table(name="post")
+public class Post {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long postId;
+	private String url;
+	
+	@ManyToOne
+	@JsonBackReference
+	private Users user;
+
+	@Convert(converter = StringSetConverter.class)
+	private List<String> userLikes=new ArrayList<String>();
+	
+	@Convert(converter = StringSetConverter.class)
+	private List<String> userDislikes=new ArrayList<String>();
+	
+	@Convert(converter = StringSetConverter.class)
+	private List<String> Views=new ArrayList<String>();
+
+	public Long getPostId() {
+		return postId;
+	}
+
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public List<String> getUserLikes() {
+		return userLikes;
+	}
+
+	public void setUserLikes(List<String> userLikes) {
+		this.userLikes = userLikes;
+	}
+
+	public List<String> getUserDislikes() {
+		return userDislikes;
+	}
+
+	public void setUserDislikes(List<String> userDislikes) {
+		this.userDislikes = userDislikes;
+	}
+
+	public List<String> getViews() {
+		return Views;
+	}
+
+	public void setViews(List<String> views) {
+		Views = views;
+	}
+
+	public Post(Long postId, String url, Users user, List<String> userLikes, List<String> userDislikes,
+			List<String> views) {
+		super();
+		this.postId = postId;
+		this.url = url;
+		this.user = user;
+		this.userLikes = userLikes;
+		this.userDislikes = userDislikes;
+		Views = views;
+	}
+
+	public Post() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+}

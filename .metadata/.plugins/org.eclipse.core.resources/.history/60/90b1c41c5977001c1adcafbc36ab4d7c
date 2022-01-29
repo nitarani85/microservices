@@ -1,0 +1,36 @@
+package com.example.historyms.entity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+@Entity
+@Table(name="post")
+public class Post {
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long postId;
+	private String url;
+	
+	@ManyToOne
+	@JsonBackReference
+	private Users user;
+
+	public Long getPostId() {
+		return postId;
+	}
+	
+	private List<Users>views=new ArrayList<Users>();
+	private List<Users>likes=new ArrayList<Users>();
+	private List<Users>dislikes=new ArrayList<Users>();
+
+
+}

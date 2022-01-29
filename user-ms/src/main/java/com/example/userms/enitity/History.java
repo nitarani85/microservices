@@ -1,0 +1,55 @@
+package com.example.userms.enitity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="history")
+public class History {
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long historyId;
+	
+	private Long userId;
+
+	private Long postId;
+
+	public Long getHistoryId() {
+		return historyId;
+	}
+
+	public void setHistoryId(Long historyId) {
+		this.historyId = historyId;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public Long getPostId() {
+		return postId;
+	}
+
+	public void setPostId(Long postId) {
+		this.postId = postId;
+	}
+
+	public History(Long historyId, Long userId, Long postId) {
+		super();
+		this.historyId = historyId;
+		this.userId = userId;
+		this.postId = postId;
+	}
+
+	public History() {
+
+	}
+}

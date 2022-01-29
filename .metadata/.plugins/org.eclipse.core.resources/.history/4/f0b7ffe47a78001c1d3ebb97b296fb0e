@@ -1,0 +1,5 @@
+package com.example.chatms.Entity;
+
+public class ChatMessage {
+
+}

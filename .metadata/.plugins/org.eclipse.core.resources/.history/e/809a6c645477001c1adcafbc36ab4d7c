@@ -1,0 +1,5 @@
+package com.example.historyms.entity;
+
+public class History {
+
+}

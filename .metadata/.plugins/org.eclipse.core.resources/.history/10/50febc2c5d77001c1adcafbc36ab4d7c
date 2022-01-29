@@ -1,0 +1,9 @@
+package com.example.historyms.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.historyms.entity.History;
+
+public interface HistoryRepo extends JpaRepository<History,Long> {
+
+}

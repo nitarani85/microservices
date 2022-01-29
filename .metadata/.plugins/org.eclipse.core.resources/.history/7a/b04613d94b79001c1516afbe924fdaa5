@@ -1,0 +1,5 @@
+package com.example.chatms.storage;
+
+public class Storage {
+
+}
