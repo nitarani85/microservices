@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,15 +21,16 @@ public class UserController {
 	UserRepository userrepo;
 
 	@GetMapping("/index")
-	public String status()
+	public String status(Model m)
 	{
 		return "index";
 	}
 	
 	@PostMapping("/register")
-	public Users userDetails(@RequestBody Users u)
+	public String userDetails(@ModelAttribute("users") @ RequestBody Users u)
 	{
-		return userrepo.save(u);
+		 userrepo.save(u);
+		 return "Login";
 	}
 	@GetMapping("/login/{userName}")
 	public String userLogin(@PathVariable String userName)
