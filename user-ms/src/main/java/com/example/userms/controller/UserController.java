@@ -26,9 +26,10 @@ public class UserController {
 		return "index";
 	}
 	
-	@PostMapping("/register")
-	public String userDetails(@ModelAttribute("users") @ RequestBody Users u)
+	@PostMapping("/login")
+	public String userDetails(@ModelAttribute("users") Users u)
 	{
+		System.out.println(u.getName());
 		 userrepo.save(u);
 		 return "Login";
 	}
