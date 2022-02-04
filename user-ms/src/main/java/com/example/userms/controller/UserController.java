@@ -3,19 +3,27 @@ package com.example.userms.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.example.userms.enitity.Users;
 import com.example.userms.repository.UserRepository;
 
-@Controller
+@RestController
+@RequestMapping("/user")
+@CrossOrigin
 public class UserController {
+	
+	@Autowired
+	RestTemplate resttemplate;
 	
 	@Autowired
 	UserRepository userrepo;
@@ -26,34 +34,34 @@ public class UserController {
 		return "index";
 	}
 	
-	@PostMapping("/login")
-	public String userDetails(@ModelAttribute("users") Users u)
+	@PostMapping("/register")
+	public Users userDetails(@RequestBody Users u)
 	{
-		System.out.println(u.getName());
 		 userrepo.save(u);
-		 return "Login";
+		 return u;
 	}
-	@GetMapping("/login/{userName}")
-	public String userLogin(@PathVariable String userName)
+	@GetMapping("/connect-to-chat")
+	public void userLogin(@ModelAttribute("users") Users u)
 	{
-		userrepo.findByUserName(userName);
-		return userName;
+		String s= this.resttemplate.getForObject("http://localhost:8020/chat", String.class);
+		System.out.println(s);
+		/*
+		 * return resttemplate.headForHeaders("http://localhost:8020/chat");
+		 */	
 	}
-	@GetMapping("/allUser")
-	public List<Users> getAllUsers()
+	@GetMapping("/allUser/{userName}")
+	public List<Users> getAllUsers(@PathVariable String userName)
 	{
-		return userrepo.findAll();
+		return userrepo.filter(userName);
 	}
 	
-	@GetMapping("/getuser/{userId}")
-	public Users getUser(@PathVariable Long userId)
+	@GetMapping("/login/{userName}")
+	public Users getUser(@PathVariable String userName)
 	{
-		return userrepo.findByUserId(userId);
+		return userrepo.findByUserName(userName);
 	}
-
+	
 }
-
-
 
 
 

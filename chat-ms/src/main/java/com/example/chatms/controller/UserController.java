@@ -29,8 +29,4 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
-//    @GetMapping("/fetchAllUsers")
-//    public Set<String> fetchAll() {
-//        return store.getUsers();
-//    }
 }
