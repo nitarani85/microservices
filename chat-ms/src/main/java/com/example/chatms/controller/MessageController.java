@@ -3,6 +3,7 @@ package com.example.chatms.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,14 +17,10 @@ public class MessageController {
 //    @Autowired
 //    UserStorage store;
     
-    @MessageMapping("/chat/{to}")
-    public void sendMessage(@DestinationVariable String to, ChatMessage message) {
-        System.out.println("handling send message: " + message + " to: " + to);
-//        boolean isExists = store.getUsers().contains(to);
-        boolean isExists = true;
-
-        if (isExists) {
-            simpMessagingTemplate.convertAndSend("/topic/messages/" + to, message);
-        }
+    @MessageMapping("/private-message")
+    public void sendMessage(@Payload ChatMessage message) {
+    	simpMessagingTemplate.convertAndSendToUser(message.getReceiverName(),"/private",message);
+        System.out.println(message.toString());
+//        return message;
     }
 }
